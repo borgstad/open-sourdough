@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "open-sour-dough-monitor"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "open_sour_dough_monitor"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+opencv-python = "^4.7.0.68"
+psycopg2-binary = "^2.9.5"
+paramiko = "^3.0.0"
+python-decouple = "^3.7"
+sqlalchemy = "^2.0.4"
+sqlalchemy-utils = "^0.40.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
