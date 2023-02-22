@@ -14,10 +14,10 @@ class SourDoughMonitor:
 
     def take_picture(self):
         camera = cv2.VideoCapture(0)
-        return_value, image = camera.read()
+        _, image = camera.read()
         now = datetime.datetime.utcnow()
         filename = now.strftime("%Y-%m-%d_%H-%M-%S-%f") + ".jpg"
-        abs_filepath = str(settings.OPEN_SOUR_DOUGH_REMOTE_IMAGE_DIR / filename)
+        abs_filepath = str(settings.OPEN_SOURDOUGH_REMOTE_IMAGE_DIR / filename)
         cv2.imwrite(filename, image)
         with self.fs.open_sftp() as sftp:
             with models.session_factory() as session:
@@ -31,9 +31,9 @@ class SourDoughMonitor:
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(
-            hostname=settings.OPEN_SOUR_DOUGH_SSH_HOSTNAME,
-            port=settings.OPEN_SOUR_DOUGH_SSH_PORT,
-            username=settings.OPEN_SOUR_DOUGH_SSH_USERNAME,
+            hostname=settings.OPEN_SOURDOUGH_SSH_HOSTNAME,
+            port=settings.OPEN_SOURDOUGH_SSH_PORT,
+            username=settings.OPEN_SOURDOUGH_SSH_USERNAME,
         )
         return client
 
