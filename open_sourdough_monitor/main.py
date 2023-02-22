@@ -2,7 +2,7 @@ import cv2
 import datetime
 from pathlib import Path
 import paramiko
-from open_sour_dough_monitor import settings, models
+from open_sourdough_monitor import settings, models
 
 
 class SourDoughMonitor:
