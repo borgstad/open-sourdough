@@ -1,45 +1,41 @@
-import cv2
 import datetime
-from pathlib import Path
-import paramiko
-from open_sourdough_monitor import settings, models
+import time
+
+import cv2
+
+from open_sourdough_monitor import models, settings
 
 
 class SourDoughMonitor:
     def __init__(
         self,
+        session_time: datetime.timedelta,
+        picture_interval: datetime.timedelta = datetime.timedelta(minutes=1),
     ):
-        self.fs = self.connect_fs()
-        self.db = self.connect_db()
+        self.session_id = models.get_latest_id() + 1
+        self.session_end_time = datetime.datetime.now() + session_time
+        self.picture_interval = picture_interval
+
+    def start_session(self):
+        while datetime.datetime.now() < self.session_end_time:
+            self.take_picture()
+            time.sleep(self.picture_interval.seconds)
 
     def take_picture(self):
         camera = cv2.VideoCapture(0)
         _, image = camera.read()
         now = datetime.datetime.utcnow()
         filename = now.strftime("%Y-%m-%d_%H-%M-%S-%f") + ".jpg"
-        abs_filepath = str(settings.OPEN_SOURDOUGH_REMOTE_IMAGE_DIR / filename)
-        cv2.imwrite(filename, image)
-        with self.fs.open_sftp() as sftp:
-            with models.session_factory() as session:
-                sftp.put(filename, abs_filepath)
-                session.add(models.SourDoughImages(abs_filepath, now))
-                session.commit()
-                session.close()
-                Path(filename).unlink()
-
-    def connect_fs(self):
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(
-            hostname=settings.OPEN_SOURDOUGH_SSH_HOSTNAME,
-            port=settings.OPEN_SOURDOUGH_SSH_PORT,
-            username=settings.OPEN_SOURDOUGH_SSH_USERNAME,
-        )
-        return client
-
-    def connect_db(self):
-        return
+        abs_filepath = settings.OPEN_SOURDOUGH_ROOT_IMAGE_DIR / str(self.session_id) / filename
+        abs_filepath.mkdir(parents=True, exist_ok=True)
+        cv2.imwrite(str(abs_filepath), image)
+        with models.session_factory() as session:
+            session.add(models.SourDoughImages(filename, now, self.session_id))
+            session.commit()
+            session.close()
 
 
 if __name__ == "__main__":
-    SourDoughMonitor().take_picture()
+    SourDoughMonitor(
+        session_time=datetime.timedelta(minutes=1),
+    ).start_session()

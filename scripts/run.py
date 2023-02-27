@@ -1,10 +1,11 @@
-import open_sour_dough_monitor.main
 import time
+
+import open_sourdough_monitor.main
 
 
 def run_every_min():
     while True:
-        open_sour_dough_monitor.main.SourDoughMonitor().take_picture()
+        open_sourdough_monitor.main.SourDoughMonitor().take_picture()
         time.sleep(60)
 
 
