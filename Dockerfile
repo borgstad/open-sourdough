@@ -17,4 +17,6 @@ COPY poetry.lock pyproject.toml /code/
 
 RUN poetry install
 COPY scripts scripts
-COPY open_sourdough_monitor open_sourdough_monitor 
+COPY open_sourdough_monitor open_sourdough_monitor
+ENV PYTHONPATH=/code
+ENTRYPOINT ["poetry", "run", "python", "scripts/run.py"]
