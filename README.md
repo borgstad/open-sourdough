@@ -6,8 +6,10 @@ Continously take pictures of your starter!
 # build the docker image
 docker build -t open-sourdough .
 
+# create the directory where the data ends up
 mkdir -p /home/$USER/data/
 
+# run the image. notice the video device is mounted
 docker run \
     -v /home/$USER/data/:/data \
     --device=/dev/video0:/dev/video0 \
