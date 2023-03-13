@@ -14,7 +14,6 @@ The session number is stored in a database, and the images are stored on the fil
 | `OPEN_SOURDOUGH_DB_USER` | Yes | Database user |
 | `OPEN_SOURDOUGH_DB_PASSWORD` | Yes | Password for database user |
 | `OPEN_SOURDOUGH_DB_PORT` | Yes | Port of the database |
-}
 
 ## How to run it
 Check the [Makefile](Makefile).
