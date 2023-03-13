@@ -13,7 +13,7 @@ RUN useradd -ms /bin/bash open-sourdough && \
   usermod -a -G video open-sourdough
 USER open-sourdough
 WORKDIR /code
-COPY poetry.lock pyproject.toml /code/
+COPY pyproject.toml /code/
 
 RUN poetry install
 COPY scripts scripts
