@@ -1,17 +1,17 @@
 FROM python:3.10
 
-RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
-ENV YOUR_ENV=${YOUR_ENV} \
-  PYTHONFAULTHANDLER=1 \
+RUN apt update && apt install ffmpeg libsm6 libxext6  -y
+ENV PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
-  PYTHONHASHSEED=random \
-  PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
   POETRY_VERSION=1.3.2
 
 RUN pip install "poetry==$POETRY_VERSION"
 
+RUN useradd -ms /bin/bash open-sourdough && \
+  usermod -a -G video open-sourdough
+USER open-sourdough
 WORKDIR /code
 COPY poetry.lock pyproject.toml /code/
 
