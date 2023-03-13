@@ -3,7 +3,9 @@ import time
 
 import cv2
 
-from open_sourdough_monitor import models, settings
+from open_sourdough_monitor import models, settings, log
+
+logger = log.logger
 
 
 class SourDoughMonitor:
@@ -31,13 +33,8 @@ class SourDoughMonitor:
         now = datetime.datetime.utcnow()
         filename = now.strftime("%Y-%m-%d_%H-%M-%S-%f") + ".jpg"
         cv2.imwrite(str(self.abs_filepath / filename), image)
+        logger.info(f"saved image: {self.abs_filepath / filename}")
         with models.session_factory() as session:
             session.add(models.SourDoughImages(filename, now, self.session_id))
             session.commit()
             session.close()
-
-
-if __name__ == "__main__":
-    SourDoughMonitor(
-        session_time=datetime.timedelta(minutes=1),
-    ).start_session()
