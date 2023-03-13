@@ -5,8 +5,8 @@ import open_sourdough_monitor.main
 
 
 def run_every_min():
-    session_time = datetime.timedelta(minutes=1)
-    picture_interval = datetime.timedelta = datetime.timedelta(seconds=5)
+    session_time = datetime.timedelta(hours=8)
+    picture_interval = datetime.timedelta(minutes=1)
     open_sourdough_monitor.main.SourDoughMonitor(
         session_time=session_time, picture_interval=picture_interval
     ).start_session()
