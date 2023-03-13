@@ -28,7 +28,7 @@ class SourDoughMonitor:
             time.sleep(self.picture_interval.total_seconds())
 
     def take_picture(self):
-        camera = cv2.VideoCapture(0)
+        camera = cv2.VideoCapture("/dev/video0")
         _, image = camera.read()
         now = datetime.datetime.utcnow()
         filename = now.strftime("%Y-%m-%d_%H-%M-%S-%f") + ".jpg"
