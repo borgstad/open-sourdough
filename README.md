@@ -19,7 +19,7 @@ Environment variables
 |OPEN_SOURDOUGH_DB_PASSWORD| Yes | Password for the database user
 |OPEN_SOURDOUGH_DB_PORT| Yes | Port of the database
 
-** Installation and setup
+## Installation and setup
 
 1. Clone the repository from https://github.com/borgstad/open-sourdough.
 2. Ensure you have Python 3.7 or higher installed.
@@ -27,7 +27,7 @@ Environment variables
 4. Run poetry install to install the project dependencies.
 5. Set the required environment variables listed in the table above in a .env file in the root of the project.
 
-** Running the script
+## Running the script
 
 To run the script, you can use the Makefile provided in the repository. Execute the following command in your terminal:
 
