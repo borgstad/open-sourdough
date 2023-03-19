@@ -41,8 +41,9 @@ class SourDoughMonitor:
         """
         self.abs_filepath.mkdir(parents=True, exist_ok=True)
         while datetime.datetime.now() < self.session_end_time:
-            with cv2.VideoCapture("/dev/video0") as camera:
-                success, image = camera.read()
+            camera = cv2.VideoCapture("/dev/video0")
+            success, image = camera.read()
+            camera.release()
             if not success:
                 logger.error("failed to read image from camera")
                 continue
