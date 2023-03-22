@@ -7,7 +7,8 @@ ENV PYTHONFAULTHANDLER=1 \
   PIP_DEFAULT_TIMEOUT=100 \
   POETRY_VERSION=1.3.2
 
-RUN pip install "poetry==$POETRY_VERSION"
+RUN pip install setuptools
+RUN pip install --only-binary cryptography poetry
 
 RUN useradd -ms /bin/bash open-sourdough && \
   usermod -a -G video open-sourdough
