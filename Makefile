@@ -3,7 +3,11 @@ include .env
 export
 
 build:
-	docker build -t open-sourdough .
+	docker buildx create --use && \
+	docker buildx build \
+	-t open-sourdough \
+	--platform linux/amd64,linux/arm \
+	.
 run:
 	docker run \
 		-v /mnt/open-sourdough/images/:/data \
