@@ -1,5 +1,6 @@
-FROM python:3.10-slim
+FROM python:3.10
 
+#RUN apt update
 WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install --no-compile -r requirements.txt
