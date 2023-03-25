@@ -1,5 +1,5 @@
 SQLAlchemy == 2.0.4
-opencv-contrib-python == 4.7.0.72
+#opencv-python==4.5.5.62
 numpy == 1.24.2
 setuptools == 67.4.0
 sqlalchemy-utils == 0.40.0

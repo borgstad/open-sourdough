@@ -1,8 +1,9 @@
-FROM python:3.10
+FROM python:3.10-bullseye
 
-#RUN apt update
+RUN apt update
 WORKDIR /code
 COPY requirements.txt /code/
+RUN apt install -y python3-opencv
 RUN pip install --no-compile -r requirements.txt
 
 RUN useradd -ms /bin/bash open-sourdough && \
